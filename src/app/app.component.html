@@ -1,0 +1,63 @@
+<div class="container mt-3">
+  <h5>ADMINISTRADOR DE TAREAS <i class="bi bi-list-task"></i></h5>
+  <hr>
+  <div class="row">
+    <!--formulario de creacion y edicion-->
+    <div class="col col-4">
+      <div class="card border-dark mb-3">
+        <div class="card-body">
+          <h5 class="card-title">NUEVA TAREA</h5>
+          <h6 class="card-subtitle mb-2 text-muted">Ingrese los datos solicitados</h6>
+          <hr>
+          <form #f="ngForm">
+            <div class="row">
+              <div class="col">
+                <input type="text" [(ngModel)]="nombre" class="form-control" name="nombre" id="nombre" placeholder="Nombre de la tarea" required="">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col">
+                <textarea class="form-control" [(ngModel)]="descripcion" name="descripcion" id="descripcion" cols="30" rows="5" placeholder="Descripcion" required=""></textarea>
+              </div>
+            </div>
+          </form>
+          <br>
+          <div class="d-grid gap-2">
+            <button class="btn btn-primary" type="button" [disabled]="f.invalid" *ngIf="btncrear==true" (click)="CrearTarea()">Crear Tarea</button>
+            <button class="btn btn-warning" type="button" *ngIf="btneditar==true" (click)="GuardarCambios()">Editar tarea</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--listado de tareas-->
+    <div class="col">
+      <div class="card border-dark mb-3">
+        <div class="card-body">
+          <h5 class="card-title">TAREAS CREADAS</h5>
+          <hr>
+          <table class="table table-striped text-center">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Op.<i class="bi bi-gear-fill"></i></th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let tarea of tareas; let i = index">
+              <tr>
+                <td>{{i}}</td>
+                <td>{{tarea.nombre}}</td>
+                <td>{{tarea.descripcion}}</td>
+                <td>
+                  <a class="btn btn-warning" (click)="EditarTarea(this.i)">Editar <i class="bi bi-arrow-clockwise"></i></a> | <a (click)="EliminarTarea(this.i)" class="btn btn-danger">Borrar <i class="bi bi-x-circle-fill"></i></a> 
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
